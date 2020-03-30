@@ -16,8 +16,9 @@ class Timer_configuration {
 
 private:
 	TIM_TypeDef * TIMER; //Timer to configure
-	uint16_t auto_reload_value = 0;
 	uint16_t prescaler_value = 0;
+	uint16_t auto_reload_value = 0;
+
 private:
 
 public:
