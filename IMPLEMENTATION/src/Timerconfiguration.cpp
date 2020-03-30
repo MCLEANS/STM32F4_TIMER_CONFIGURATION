@@ -81,7 +81,20 @@ void Timer_configuration::initialize(){
 	case TIM14:
 			RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
 			break;
+
 	}
+
+	//generate Update event
+	TIMER->EGR |= TIM_EGR_UG;
+	//Set Update request source to be counter overflow only
+	TIMER->CR1 |= TIM_CR1_URS;
+	//Enable Auto_preload (TIMX-ARR register is buffered)
+	TIMER->CR1 |= TIM_CR1_ARPE;
+	//Enable Update interrupt
+	TIMER->DIER |= TIM_DIER_UIE;
+	//Enable timer
+	TIMER->CR1 |= TIM_CR1_CEN;
+
 }
 
 Timer_configuration::~Timer_configuration() {
