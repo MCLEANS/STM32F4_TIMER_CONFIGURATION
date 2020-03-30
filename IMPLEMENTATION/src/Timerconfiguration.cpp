@@ -19,7 +19,7 @@ Timer_configuration::Timer_configuration(TIM_TypeDef *TIMER, uint16_t prescaler_
 void Timer_configuration::set_prescaler(uint16_t prescaler_value){
 	this->prescaler_value = prescaler_value;
 
-	if(this->prescaler_value != TIMER->PSC) TIMER->PSC = prescaler_value;
+	if(this->prescaler_value != TIMER->PSC) TIMER->PSC = this->prescaler_value;
 }
 
 uint16_t Timer_configuration::get_prescaler(void) const{
@@ -38,62 +38,30 @@ uint16_t Timer_configuration::get_auto_reload_value(void) const{
 
 void Timer_configuration::initialize(){
 	//Enable Timer RCC
-	switch(TIMER){
-	case TIM1:
-			RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
-			break;
-	case TIM2:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
-			break;
-	case TIM3:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-			break;
-	case TIM4:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
-			break;
-	case TIM5:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;
-			break;
-	case TIM6:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
-			break;
-	case TIM7:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
-			break;
-	case TIM8:
-			RCC->APB2ENR |= RCC_APB2ENR_TIM8EN;
-			break;
-	case TIM9:
-			RCC->APB2ENR |= RCC_APB2ENR_TIM9EN;
-			break;
-	case TIM10:
-			RCC->APB2ENR |= RCC_APB2ENR_TIM10EN;
-			break;
-	case TIM11:
-			RCC->APB2ENR |= RCC_APB2ENR_TIM11EN;
-			break;
-	case TIM12:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM12EN;
-			break;
-	case TIM13:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM13EN;
-			break;
-	case TIM14:
-			RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
-			break;
+	if(TIMER == TIM1) RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
+	if(TIMER == TIM2) RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
+	if(TIMER == TIM3) RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
+	if(TIMER == TIM4) RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
+	if(TIMER == TIM5) RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;
+	if(TIMER == TIM6) RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
+	if(TIMER == TIM7) RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
+	if(TIMER == TIM8) RCC->APB2ENR |= RCC_APB2ENR_TIM8EN;
+	if(TIMER == TIM9) RCC->APB2ENR |= RCC_APB2ENR_TIM9EN;
+	if(TIMER == TIM10) RCC->APB2ENR |= RCC_APB2ENR_TIM10EN;
+	if(TIMER == TIM11) RCC->APB2ENR |= RCC_APB2ENR_TIM11EN;
+	if(TIMER == TIM12) RCC->APB1ENR |= RCC_APB1ENR_TIM12EN;
+	if(TIMER == TIM13) RCC->APB1ENR |= RCC_APB1ENR_TIM13EN;
+	if(TIMER == TIM14) RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
 
-	}
 
-	//generate Update event
-	TIMER->EGR |= TIM_EGR_UG;
-	//Set Update request source to be counter overflow only
-	TIMER->CR1 |= TIM_CR1_URS;
-	//Enable Auto_preload (TIMX-ARR register is buffered)
-	TIMER->CR1 |= TIM_CR1_ARPE;
-	//Enable Update interrupt
-	TIMER->DIER |= TIM_DIER_UIE;
-	//Enable timer
-	TIMER->CR1 |= TIM_CR1_CEN;
+	//Initiate update event
+	TIM3->EGR |= TIM_EGR_UG;
+	//Enable update interrupt
+	TIM3->DIER |= TIM_DIER_UIE;
+	//only timer overflow generates update event
+	TIM3->CR1 |= TIM_CR1_URS;
+	//Enable counter
+	TIM3->CR1 |= TIM_CR1_CEN;
 
 }
 
