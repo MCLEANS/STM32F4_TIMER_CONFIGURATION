@@ -29,6 +29,7 @@ public:
 	uint16_t get_prescaler(void) const;
 	void set_auto_reload_value(uint16_t auto_reload_value) ;
 	uint16_t get_auto_reload_value(void) const;
+	void initialize();
 };
 
 } /* namespace custom_libraries */
