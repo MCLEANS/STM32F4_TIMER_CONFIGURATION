@@ -9,9 +9,26 @@
 
 namespace custom_libraries {
 
-Timer_configuration::Timer_configuration() {
-	// TODO Auto-generated constructor stub
+Timer_configuration::Timer_configuration(TIM_TypeDef *TIMER, uint16_t prescaler_value, uint16_t auto_reload_value) : TIMER(TIMER),
+																												prescaler_value(prescaler_value),
+																												auto_reload_value(auto_reload_value){
 
+}
+
+void Timer_configuration::set_prescaler(uint16_t prescaler_value){
+	this->prescaler_value = prescaler_value;
+}
+
+uint16_t Timer_configuration::get_prescaler(void) const{
+	return this->prescaler_value;
+}
+
+void Timer_configuration::set_auto_reload_value(uint16_t auto_reload_value){
+	this->auto_reload_value = auto_reload_value;
+}
+
+uint16_t Timer_configuration::get_auto_reload_value(void) const{
+	return this->auto_reload_value;
 }
 
 Timer_configuration::~Timer_configuration() {
