@@ -17,7 +17,7 @@
 #define PSC_VALUE 65535
 
 custom_libraries::clock_config sys_clock;
-custom_libraries::Timer_configuration timer(TIM3);
+custom_libraries::Timer_configuration timer(TIM3 ,65535,640);
 
 
 int  count = 0;
@@ -37,35 +37,10 @@ int main(void)
 {
 
 	sys_clock.initialize();
-	timer.set_auto_reload_value(640);
-	timer.set_prescaler(65535);
+	//timer.set_auto_reload_value(640);
+	//timer.set_prescaler(65535);
 	timer.initialize();
 
-
-
-
-
-
-	//Enable TIM5 clock
-	//RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-
-
-
-
-/*	//SET PRESCALER
-	TIM3->PSC = PSC_VALUE;
-	//set ARR VALUE
-	TIM3->ARR = ARR_VALUE;
-	//Initiate update event
-	TIM3->EGR |= TIM_EGR_UG;
-	//Enable update interrupt
-	TIM3->DIER |= TIM_DIER_UIE;
-	//only timer overflow generates update event
-	TIM3->CR1 |= TIM_CR1_URS;
-	//Enable counter
-	TIM3->CR1 |= TIM_CR1_CEN;
-
-*/
 
 	//set NVIC priority
 	NVIC_SetPriority(TIM3_IRQn,0x03);
@@ -74,16 +49,9 @@ int main(void)
 
 
 
-
-
-
-
-
-
 	while(1){
 
-		auto_reload = timer.get_auto_reload_value();
-		prescaler = timer.get_prescaler();
+
 
 
 	}
