@@ -56,13 +56,13 @@ uint16_t Timer_configuration::get_auto_reload_value(void) const{
 void Timer_configuration::initialize(){
 
 	//Initiate update event
-	TIM3->EGR |= TIM_EGR_UG;
+	TIMER->EGR |= TIM_EGR_UG;
 	//Enable update interrupt
-	TIM3->DIER |= TIM_DIER_UIE;
+	TIMER->DIER |= TIM_DIER_UIE;
 	//only timer overflow generates update event
-	TIM3->CR1 |= TIM_CR1_URS;
+	TIMER->CR1 |= TIM_CR1_URS;
 	//Enable counter
-	TIM3->CR1 |= TIM_CR1_CEN;
+	TIMER->CR1 |= TIM_CR1_CEN;
 
 }
 
