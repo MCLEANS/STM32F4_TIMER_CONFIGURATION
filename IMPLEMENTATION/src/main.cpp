@@ -16,11 +16,11 @@
 int count = 0;
 
 custom_libraries::clock_config sys_clock;
-custom_libraries::Timer_configuration timer(TIM5,65535,640);
+custom_libraries::Timer_configuration timer(TIM7,65535,640); // (Timer,Prescaler,Auto_reload_value)
 
-extern "C" void TIM5_IRQHandler(void){
-	if(TIM5->SR & TIM_SR_UIF){
-					TIM5->SR &= ~TIM_SR_UIF;
+extern "C" void TIM7_IRQHandler(void){
+	if(TIM7->SR & TIM_SR_UIF){
+					TIM7->SR &= ~TIM_SR_UIF;
 					count++;
 	}
 
@@ -33,9 +33,9 @@ int main(void)
 	timer.initialize();
 
 	//set NVIC priority
-	NVIC_SetPriority(TIM5_IRQn,0x03);
+	NVIC_SetPriority(TIM7_IRQn,0x03);
 	//enable NVIC
-	NVIC_EnableIRQ(TIM5_IRQn);
+	NVIC_EnableIRQ(TIM7_IRQn);
 
 
 
