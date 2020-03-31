@@ -3,6 +3,8 @@
  *
  *  Created on: Mar 30, 2020
  *      Author: MCLEANS
+ *
+ *      This library expects you to implement your own Interrupt handler
  */
 
 #ifndef TIMERCONFIGURATION_H_
