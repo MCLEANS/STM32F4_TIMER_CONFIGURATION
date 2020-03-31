@@ -16,11 +16,13 @@
 #define ARR_VALUE 640
 #define PSC_VALUE 65535
 
+int count = 0;
+
 custom_libraries::clock_config sys_clock;
 custom_libraries::Timer_configuration timer(TIM3,65535,640);
 
 
-uint32_t  count = 0;
+
 
 
 extern "C" void TIM3_IRQHandler(void){
